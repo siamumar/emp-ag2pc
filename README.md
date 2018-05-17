@@ -25,7 +25,7 @@ Authenticated Garbling and Efficient Maliciously Secure Two-Party Computation
   IP address is hardcoded in the test files. Please replace
   IP variable to the real ip.
   
-  ## Run
+## Run
   ```
    bin/single_execution_run  
       -h [ --help ]                         produce help message.   
