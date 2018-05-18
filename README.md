@@ -24,6 +24,17 @@ Authenticated Garbling and Efficient Maliciously Secure Two-Party Computation
   
   IP address is hardcoded in the test files. Please replace
   IP variable to the real ip.
+  
+## Run
+  ```
+   bin/single_execution_run  
+      -h [ --help ]                         produce help message.   
+      -k [ --party ] arg (=1)               party id: 1 for garbler, 2 for evaluator.   
+      -c [ --circuit_file ] arg (=/usr/local/include/emp-tool/circuits/files/adder_32bit.txt) circuit file address.   
+      -p [ --port ] arg (=1234)             socket port.   
+      -s [ --server_ip ] arg (=127.0.0.1)   server's IP.   
+      -i [ --input ] arg                    hexadecimal input.
+   ```
 
 ### Question
 Please send email to wangxiao1254@gmail.com
