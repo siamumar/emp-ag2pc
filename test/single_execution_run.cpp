@@ -82,11 +82,11 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 	
-	cout << party << endl;
+	/*cout << party << endl;
 	cout << port << endl;
 	cout << circuit_file_address << endl;
 	cout << server_ip << endl;
-	cout << input_hex_str << endl;
+	cout << input_hex_str << endl;*/
 	
 	NetIO* io = new NetIO(party==ALICE ? nullptr:server_ip.c_str(), port);
 	io->set_nodelay();
