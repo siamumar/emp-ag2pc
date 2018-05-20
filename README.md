@@ -33,7 +33,7 @@ Authenticated Garbling and Efficient Maliciously Secure Two-Party Computation
       -c [ --circuit_file ] arg (=/usr/local/include/emp-tool/circuits/files/adder_32bit.txt) circuit file address.   
       -p [ --port ] arg (=1234)             socket port.   
       -s [ --server_ip ] arg (=127.0.0.1)   server's IP.   
-      -i [ --input ] arg                    hexadecimal input.
+      -i [ --input ] arg                    hexadecimal input (little endian).
    ```
 
 ### Question
