@@ -65,15 +65,15 @@ void fill_input(bool *in, string input_hex_str, int input_bit_width){
 	int d = input_bin_str.size() - input_bit_width;
 	if(d > 0)	
 		for (int i = 0; i < input_bit_width; ++i)
-			in[i] = (input_bin_str[i+d] == '1')? true:false;
+			in[input_bit_width-i-1] = (input_bin_str[i+d] == '1')? true:false;
 	else
 		for (int i = 0; i < input_bin_str.size(); ++i)
-			in[i-d] = (input_bin_str[i] == '1')? true:false;
+			in[input_bin_str.size()-i-1] = (input_bin_str[i] == '1')? true:false;
 }
 
 string read_output(bool *out, int output_bit_width){	
 	string  output_hex_str, output_bin_str = "";
-	for(int i = 0; i < output_bit_width; ++i)
+	for(int i = output_bit_width-1; i >= 0; --i)
 			output_bin_str += (out[i]?"1":"0");
 
 	output_hex_str = bin2hex(output_bin_str);
