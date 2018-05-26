@@ -12,21 +12,27 @@ namespace po = boost::program_options;
 const string circuit_file_location = macro_xstr(EMP_CIRCUIT_PATH);
 
 string single_execution_run(int party, NetIO* io, string circuit_file_address, string input_hex_str = "") {
+	uint64_t c0, dc;
+	double t0, dt;
+	
 	CircuitFile cf(circuit_file_address.c_str());
-	auto t1 = clock_start();
+	start_timer(c0, t0);
 	C2PC twopc(io, party, &cf);
 	io->flush();
-	cout << "one time:\t"<<party<<"\t" <<time_from(t1)<<endl;
+	get_timer(c0, dc, t0, dt);
+	cout << "one:\t" << dc << "\tcc\t" << dt << "\tms" << endl;
 
-	t1 = clock_start();
+	start_timer(c0, t0);
 	twopc.function_independent();
 	io->flush();
-	cout << "inde:\t"<<party<<"\t"<<time_from(t1)<<endl;
+	get_timer(c0, dc, t0, dt);
+	cout << "inde:\t" << dc << "\tcc\t" << dt << "\tms" << endl;
 
-	t1 = clock_start();
+	start_timer(c0, t0);
 	twopc.function_dependent();
 	io->flush();
-	cout << "dep:\t"<<party<<"\t"<<time_from(t1)<<endl;
+	get_timer(c0, dc, t0, dt);
+	cout << "dep:\t" << dc << "\tcc\t" << dt << "\tms" << endl;
 	
 	int input_bit_width;
 	if (party == ALICE)
@@ -40,9 +46,10 @@ string single_execution_run(int party, NetIO* io, string circuit_file_address, s
 	bool *out = new bool[cf.n3];
 	memset(out, false, cf.n3);	
 	
-	t1 = clock_start();
+	start_timer(c0, t0);
 	twopc.online(in, out);
-	cout << "online:\t"<<party<<"\t"<<time_from(t1)<<endl;
+	get_timer(c0, dc, t0, dt);
+	cout << "online:\t" << dc << "\tcc\t" << dt << "\tms" << endl;
 	
 	string output_hex_str = read_output(out, cf.n3);
 	
@@ -65,7 +72,7 @@ int main(int argc, char* argv[]) {
 	("circuit_file,c", po::value<string>(&circuit_file_address)->default_value(circuit_file_location + "adder_32bit.txt"), "circuit file address.")  //
 	("port,p", po::value<int>(&port)->default_value(1234), "socket port")  //
 	("server_ip,s", po::value<string>(&server_ip)->default_value(IP), "server's IP.")  //
-	("input,i", po::value<string>(&input_hex_str)->default_value(""),"hexadecimal input.");
+	("input,i", po::value<string>(&input_hex_str)->default_value(""),"hexadecimal input (little endian).");
 	
 	po::variables_map vm;
 	try {

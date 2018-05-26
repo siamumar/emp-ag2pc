@@ -1,5 +1,26 @@
 #include <string>
+#include <sys/time.h>
 
+#define RDTSC ({unsigned long long res; \
+  unsigned hi, lo;   \
+  __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi)); \
+  res =  ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 ); \
+  res;})
+  
+void start_timer(uint64_t &c0, double &t0){
+	c0 = RDTSC;
+	struct timeval tp;
+	gettimeofday(&tp, NULL);
+	t0 = ((double)(tp.tv_sec))*1000 + ((double)(tp.tv_usec))/1000;
+}
+  
+void get_timer(uint64_t c0, uint64_t &dc, double t0, double &dt){
+	dc = RDTSC - c0;
+	struct timeval tp;
+	gettimeofday(&tp, NULL);
+	dt = ((double)(tp.tv_sec))*1000 + ((double)(tp.tv_usec))/1000 - t0;
+}
+  
 string hex2bin(string hex_){
 	uint16_t len = hex_.length();
 	string bin("");
