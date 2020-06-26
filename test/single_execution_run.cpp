@@ -35,10 +35,18 @@ string single_execution_run(int party, NetIO* io, string circuit_file_address, s
 	cout << "dep:\t" << dc << "\tcc\t" << dt << "\tms" << endl;
 	
 	int input_bit_width;
-	if (party == ALICE)
+	if (party == ALICE){
 		input_bit_width = cf.n1;
-	else
+		start_timer(c0, t0);
+		io->send_data(&input_bit_width, sizeof(int));
+		get_timer(c0, dc, t0, dt);
+		cout << "send:\t" << dc << "\tcc\t" << dt << "\tms" << endl;
+	}
+	else{
 		input_bit_width = cf.n2;
+		io->recv_data(&input_bit_width, sizeof(int));
+		cout << input_bit_width << endl;
+	}
 	
 	bool *in = new bool[input_bit_width];
 	fill_input (in, input_hex_str, input_bit_width);
