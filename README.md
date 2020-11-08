@@ -10,26 +10,25 @@ More details of the protocol can be found in the [paper](https://eprint.iacr.org
 1. Install prerequisites using instructions [here](https://github.com/emp-toolkit/emp-readme).
 2. Install [emp-tool](https://github.com/emp-toolkit/emp-tool).
 3. Install [emp-ot](https://github.com/emp-toolkit/emp-ot).
-4. git clone https://github.com/emp-toolkit/emp-ag2pc.git
+4. git clone https://github.com/siamumar/emp-ag2pc/tree/command_line_development
 5. cd emp-ag2pc && cmake . && make 
 
 ## Test
 
-* If you want to test the code in local machine, type
+* If you want to see the help message for command_line_run
 
-   `./run ./bin/[binaries] 12345 [more opts]`
+   `./bin/command_line_run -h`
 * IF you want to test the code over two machine, type
 
-  `./bin/[binaries] 1 12345 [more opts]` on one machine and 
+  `./bin/command_line_run -k 1 -i 1 [more opts]` on one machine and 
   
-  `./bin/[binaries] 2 12345 [more opts]` on the other.
+  `./bin/command_line_run -k 2 -i 1 [more opts]` on the other.
   
-  IP address is hardcoded in the test files. Please replace
-  IP variable to the real ip.
+  Default arguments are stated in the help message. Arguments can be changed if needed.
   
 ## Run
   ```
-   bin/single_execution_run  
+   bin/command_line_run  
       -h [ --help ]                         produce help message.   
       -k [ --party ] arg (=1)               party id: 1 for garbler, 2 for evaluator.   
       -c [ --circuit_file ] arg (=/usr/local/include/emp-tool/circuits/files/adder_32bit.txt) circuit file address.   
@@ -38,16 +37,6 @@ More details of the protocol can be found in the [paper](https://eprint.iacr.org
       -i [ --input ] arg                    hexadecimal input (little endian).
    ```
 
-### Question
-Please send email to wangxiao1254@gmail.com
-
-
-##TODOs
-2. clean up code
-
-4. improve multithreading code using lambda function
-
-5. improve testing code
 
 ## Acknowledgement
 This work was supported in part by the National Science Foundation under Awards #1111599 and #1563722.
