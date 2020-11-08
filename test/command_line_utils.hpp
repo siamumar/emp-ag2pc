@@ -1,26 +1,10 @@
-#include <string>
-#include <sys/time.h>
+//#include <boost/format.hpp>
+#include <cstdlib>
+#include "test/single_execution.h"
 
-#define RDTSC ({unsigned long long res; \
-  unsigned hi, lo;   \
-  __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi)); \
-  res =  ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 ); \
-  res;})
-  
-void start_timer(uint64_t &c0, double &t0){
-	c0 = RDTSC;
-	struct timeval tp;
-	gettimeofday(&tp, NULL);
-	t0 = ((double)(tp.tv_sec))*1000 + ((double)(tp.tv_usec))/1000;
-}
-  
-void get_timer(uint64_t c0, uint64_t &dc, double t0, double &dt){
-	dc = RDTSC - c0;
-	struct timeval tp;
-	gettimeofday(&tp, NULL);
-	dt = ((double)(tp.tv_sec))*1000 + ((double)(tp.tv_usec))/1000 - t0;
-}
-  
+using namespace std;
+using namespace emp;
+
 string hex2bin(string hex_){
 	uint16_t len = hex_.length();
 	string bin("");
@@ -88,7 +72,7 @@ void fill_input(bool *in, string input_hex_str, int input_bit_width){
 		for (int i = 0; i < input_bit_width; ++i)
 			in[input_bit_width-i-1] = (input_bin_str[i+d] == '1')? true:false;
 	else
-		for (int i = 0; i < input_bin_str.size(); ++i)
+		for (int i = 0; i < int(input_bin_str.size()); ++i)
 			in[input_bin_str.size()-i-1] = (input_bin_str[i] == '1')? true:false;
 }
 
