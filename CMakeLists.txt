@@ -5,8 +5,8 @@ set(NAME "emp-ag2pc")
 find_path(CMAKE_FOLDER NAMES cmake/emp-tool-config.cmake)
 
 include(${CMAKE_FOLDER}/cmake/common.cmake)
-include(${CMAKE_FOLDER}/cmake/source_of_randomness.cmake)
-include(${CMAKE_FOLDER}/cmake/threading.cmake)
+include(${CMAKE_FOLDER}/cmake/enable_rdseed.cmake)
+include(${CMAKE_FOLDER}/cmake/enable_float.cmake)
 
 
 
@@ -31,6 +31,7 @@ add_test(sha1)
 add_test(sha256)
 add_test(single_execution_run)
 add_test (simple_circuit)
-#add_test (abit)
-#add_test (amortized_2pc)
+add_test (abit)
+add_test (triple)
+add_test (amortized_2pc)
 
