@@ -15,9 +15,9 @@ string single_execution_run(int party, NetIO* io, string circuit_file_address, s
 	uint64_t c0, dc;
 	double t0, dt;
 	
-	CircuitFile cf(circuit_file_address.c_str());
+	BristolFormat cf(circuit_file_address.c_str());
 	start_timer(c0, t0);
-	C2PC twopc(io, party, &cf);
+	C2PC <NetIO> twopc(io, party, &cf);
 	io->flush();
 	get_timer(c0, dc, t0, dt);
 	cout << "one:\t" << dc << "\tcc\t" << dt << "\tms" << endl;
